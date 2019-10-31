@@ -1,0 +1,22 @@
+{
+  "name": "cta-train-tracker-service",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "prestart": "npm run build",
+    "start": "node ."
+  },
+  "dependencies": {
+    "@types/express": "^4.17.1",
+    "@types/node": "^12.12.3",
+    "@types/node-fetch": "^2.5.2",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "express": "~4.16.1",
+    "morgan": "~1.9.1",
+    "node-fetch": "^2.6.0",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.4"
+  }
+}
