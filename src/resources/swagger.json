@@ -1,0 +1,245 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "CTA Bus Tracker Service API",
+    "description": "A gateway microservice for CTA Bus Tracker API",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "tags": [
+    {
+      "name": "Available endpoints"
+    }
+  ],
+  "paths": {
+    "/routes": {
+      "get": {
+        "tags": [
+          "Available endpoints"
+        ],
+        "summary": "Get available bus routes",
+        "responses": {
+          "200": {
+            "description": "A list of bus routes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Route"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/directions": {
+      "get": {
+        "tags": [
+          "Available endpoints"
+        ],
+        "summary": "Get available directions for a specified bus route",
+        "parameters": [
+          {
+            "name": "rt",
+            "description": "Alphanumeric designator of a route for which a list of available directions is to be returned",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "9"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of directions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Direction"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stops": {
+      "get": {
+        "tags": [
+          "Available endpoints"
+        ],
+        "summary": "Get available bus stops for a bus route going in a specified direction",
+        "parameters": [
+          {
+            "name": "rt",
+            "description": "Alphanumeric designator of a route for which a list of available directions is to be returned",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "9"
+            },
+            "required": true
+          },
+          {
+            "name": "dir",
+            "description": "Direction of the route for which a list of available stops is to be returned",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "Southbound"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of bus stops",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Stop"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/predictions": {
+      "get": {
+        "tags": [
+          "Available endpoints"
+        ],
+        "summary": "Get predictions for a bus stop for on a specified route",
+        "parameters": [
+          {
+            "name": "rt",
+            "description": "Alphanumeric designator of a route for which a list of available directions is to be returned",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "9"
+            },
+            "required": true
+          },
+          {
+            "name": "stp",
+            "description": " Unique identifier representing the stop for which this prediction is to be generated",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "6066"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of predictions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Prediction"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Route": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "Direction": {
+        "type": "object",
+        "properties": {
+          "direction": {
+            "type": "string"
+          },
+          "routeId": {
+            "type": "string"
+          }
+        }
+      },
+      "Stop": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "routeId": {
+            "type": "string"
+          },
+          "direction": {
+            "type": "string"
+          },
+          "oppositeDirectionStopId": {
+            "type": "string"
+          }
+        }
+      },
+      "Prediction": {
+        "type": "object",
+        "properties": {
+          "vehicleId": {
+            "type": "string"
+          },
+          "stopId": {
+            "type": "string"
+          },
+          "stopName": {
+            "type": "string"
+          },
+          "routeId": {
+            "type": "string"
+          },
+          "direction": {
+            "type": "string"
+          },
+          "destination": {
+            "type": "string"
+          },
+          "arrivalTime": {
+            "type": "string"
+          },
+          "predictionTime": {
+            "type": "string"
+          },
+          "oppositeDirectionStopId": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
