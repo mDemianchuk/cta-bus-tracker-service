@@ -1,0 +1,21 @@
+{
+  "taskDefinition": {
+    "family": "cta-bus-tracker-service",
+    "containerDefinitions": [
+      {
+        "name": "cta-bus-tracker-service",
+        "image": "137272338368.dkr.ecr.us-east-1.amazonaws.com/cta-bus-tracker-service:latest",
+        "cpu": 100,
+        "portMappings": [
+          {
+            "protocol": "tcp",
+            "containerPort": 80,
+            "hostPort": 80
+          }
+        ],
+        "memory": 128,
+        "essential": true
+      }
+    ]
+  }
+}
