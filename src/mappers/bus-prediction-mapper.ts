@@ -1,11 +1,14 @@
 import {BusPrediction} from "../models/bus-prediction";
 import {CtaMapper} from "./cta-mapper";
+import {TimeHelper} from "../utils/time-helper";
 
 export class BusPredictionMapper implements CtaMapper<BusPrediction> {
 
     map(json: { [key: string]: any }): BusPrediction | undefined {
         let prediction;
         if (this.isValid(json)) {
+            const arrivalTime: number = TimeHelper.getTimestamp(json['prdtm']);
+            const predictionTime: number = TimeHelper.getTimestamp(json['tmstmp']);
             prediction = new BusPrediction(
                 json['vid'],
                 json['stpid'],
@@ -13,8 +16,8 @@ export class BusPredictionMapper implements CtaMapper<BusPrediction> {
                 json['rt'],
                 json['rtdir'],
                 json['des'],
-                json['prdtm'],
-                json['tmstmp']
+                arrivalTime,
+                predictionTime
             );
         }
         return prediction;
